@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <title>EYE CLINIC</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 5px;
+            font-family: Poppins, sans-serif;
+            font-size: 12px;
+            line-height: 1.2em;
+        }
+
+        body {
+            font-family: Poppins, sans-serif;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .p1 {
+            font-size: 45px;
+        }
+
+        .p2 {
+            font-size: 22px;
+            line-height: 1.2em;
+            color: rgb(16, 16, 79);
+            text-align: center;
+            font-weight: 500;
+        }
+        .p3 {
+            font-size: 15px;
+            text-align: center;
+        }
+        .p4 {
+            font-size: 28px;
+            background-color: lightgray;
+            color: rgb(16, 16, 79);
+            border-radius: 16px;
+            text-align: center;
+            padding: 8px 0;
+            font-weight: 500;
+            margin-top: 20px;
+        }
+
+        .container {
+            display: flex;
+            height: 100%;
+            padding: 10px;
+        }
+
+        .head {
+            height: 20%;
+            background-color: lightslategray;
+            border-radius: 24px;
+            gap: 2px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .main {
+            background-color: white;
+            height: 80%; /* Set a specific height to allow scrolling */
+            overflow-y: auto; /* Enable vertical scrolling */
+            padding: 10px; /* Add some padding */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 40px; /* Space between grid items */
+            flex: 1; /* Ensure gallery takes available space */
+            justify-content: center;
+        }
+        .gallery.two-items {
+            grid-template-columns: 1fr 1fr auto; /* First two items take equal space, third takes remaining space */
+        }
+
+        .phcard {
+            background-color: lightgray; /* Card background */
+            border-radius: 15px; /* Rounded corners */
+            overflow: hidden; /* Clip content */
+            display: flex; /* Align items in the center */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            flex-direction: column;
+        }
+
+        .equip {
+            width: 85%; /* Fill the height of the card */
+            height: 400px; /* Fill the width of the card */
+            object-fit: cover; /* Cover the container */
+            border-radius: 25px;
+        }
+
+        .ctrl, .title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+            background-color: transparent;
+            width: 100%;
+            gap: 2px;
+        }
+
+        .ctrl {
+            height: 40%;
+        }
+
+        .title {
+            height: 60%;
+            flex: 1;
+        }
+
+        .title i {
+            font-size: 16px;
+        }
+
+        .left, .right {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            height: 100%;
+            flex: 1;
+            gap: 5px;
+        }
+
+        .left {
+            justify-content: flex-start;
+        }
+
+        .right {
+            justify-content: flex-end;
+        }
+
+        a {
+            color: white;
+            font-size: 16px;
+            background-color: rgb(164, 164, 164);
+            padding: 8px 10px;
+            border-radius: 20px;
+            text-align: center;
+            text-decoration: none;
+            opacity: 0.8;
+        }
+
+        a:hover {
+            opacity: 0.5;
+        }
+
+        a.menu {
+            width: 150px;
+            background-color: lightblue;
+            padding: 12px 10px;
+            color: rgb(16, 16, 79);
+            font-weight: 500;
+        }
+
+        a.menu.gal {
+            color: navy;
+            background-color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Added box shadow */
+        }
+
+        input[type="search"] {
+            background-color: rgb(164, 164, 164);
+            border: 0.5px solid rgb(164, 164, 164);
+            padding: 12px 10px;
+            border-radius: 20px;
+            opacity: 0.8;
+            width: 400px;
+        }
+
+        input::placeholder {
+            color: white;
+            font-weight: 200;
+            font-size: 16px;
+        }
+        .label {
+            flex-direction: column;
+            line-height: 1em;
+            justify-content: right;
+            align-items: center;
+            align-content: center;
+            display: flex;
+        }
+        .ph:hover .phtext {
+            display: inline;
+        }
+        .phtext {
+            display: none;
+        }
+        .em:hover .phtext {
+            display: inline;
+        }
+        .emtext {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="head">
+        <div class="ctrl">
+            <div class="left">
+                <a href="#" class="ph"><i class="fas fa-phone"></i><span class="phtext">(+63)956-251-0596</span></a>
+                <a href="mailto:valdezmax1027@gmail.com" class="ph"> <i class="fas fa-envelope"></i> <span class="phtext">(+63)956-251-0596</span></a>
+                <a href="https://www.facebook.com/NuevaEcijaEyeSpecialists/"><i class="fab fa-facebook-f"></i></a>
+            </div>
+            <div class="right"><input type="search" id="searchInput" class="searchBtn" placeholder="Search equipment" aria-label="Search">
+                <a href="#"><i class="fas fa-search"></i></a> 
+            </div>
+        </div>
+        <div class="title">
+            <div class="left">
+                <img src="logo.jpg" height="55px" width="auto" style="border-radius: 200px;">
+                <p2 style="font-size: 30px;">NEMC Nueva Ecija Eye Specialists</p2>
+            </div>
+            <div class="right">
+                <a href="services.html" class="menu ser"><i class="fa-solid fa-microscope"></i> SERVICES</a>
+                <a href="doctors.html" class="menu doc"><i class="fa-solid fa-user-nurse"></i> DOCTORS</a>
+                <a href="gallery.html" class="menu gal"><i class="fa-solid fa-image"></i> GALLERY</a>
+                <a href="about.html" class="menu abs"><i class="fas fa-info-circle"></i> ABOUT US</a>
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        <br>
+        <p class="p4">PHACO MACHINE</p>
+        <div class="gallery">
+            <div class="phcard">
+                <div class="label">
+                    <p class="p2">Visalis V500</p>
+                    <p class="p3">A versatile phacoemulsification system designed for efficient cataract surgery with advanced fluidics and intuitive controls.</p>
+                </div>
+                <img src="visalis2.png" class="equip" alt="Phaco Machine">
+            </div>
+            
+            <div class="phcard">
+                <div class="label">
+                    <p class="p2">Legion Phaco Machine</p>
+                    <p class="p3">Offers customizable settings for enhanced performance in cataract procedures, featuring real-time feedback and precision.</p>
+                </div>
+                <img src="legion2.png" class="equip" alt="Operating Microscope">
+            </div>
+            
+            <div class="phcard">
+                <div class="label">
+                    <p class="p2">Laureate Phaco Machine</p>
+                    <p class="p3">Combines user-friendly interfaces with innovative technologies to optimize cataract surgery outcomes.</p>
+                </div>
+                <img src="laureate2.jpg" class="equip" alt="Laser Machine">
+            </div>
+        </div>
+        <br>
+        <p class="p4">Operating Microscope</p>
+            <div class="gallery two-items">
+            <div class="phcard">
+                <div class="label">
+                    <p class="p2">Opti Lumera 700</p>
+                    <p class="p3">A high-performance surgical microscope with advanced optics and integrated fluorescence capabilities for detailed visualization during eye surgeries.</p>
+                </div>
+                <img src="optima.png" class="equip" alt="Diagnostic Machine">
+            </div>
+            
+            <div class="phcard">
+                <div class="label">
+                    <p class="p2">OMS 90</p>
+                    <p class="p3">A compact, ergonomic microscope designed for precision in ocular procedures, featuring high-definition imaging and easy maneuverability.</p>
+                </div>
+                <img src="oms.jpg" class="equip" alt="Other Equipment">
+            </div>
+        </div><br>
+        <p class="p4">LASER MACHINES</p>
+            <div class="gallery two-items">
+            
+            <div class="phcard">
+                <div class="label">
+                    <p class="p2">Ellex Ultra Q</p>
+                    <p class="p3">A dual-wavelength laser system for retinal treatments, offering precise photocoagulation and minimal thermal damage to surrounding tissues.
+                    </p>
+                </div>
+                <img src="UQ-gallery1.jpg" class="equip" alt="Phoropter">
+            </div>
+                        
+            <div class="phcard">
+                <div class="label">
+                    <p class="p2">Ophthalmic Green Laser</p>
+                    <p class="p3">Utilized for a variety of retinal procedures, providing focused and effective laser treatment with a specific wavelength.</p>
+                </div>
+                <img src="opthalmic.jpg" class="equip" alt="Phoropter">
+            </div>
+        </div><br>
+        <p class="p4">DIAGNOSTIC MACHINES</p>
+            <div class="gallery">
+                        
+            <div class="phcard">
+                <div class="label">
+                    <p class="p2">Retinal Camera TRC-NW8F Plus</p>
+                    <p class="p3">A high-resolution retinal imaging device for detailed fundus photography and documentation of ocular conditions.
+                    </p>
+                </div>
+                <img src="retinalcam.png" class="equip" alt="Phoropter">
+            </div>
+                        
+            <div class="phcard">
+                <div class="label">
+                    <p class="p2">DRI OCT Triton</p>
+                    <p class="p3">An advanced optical coherence tomography system that provides high-definition cross-sectional imaging of retinal structures for diagnostics.</p>
+                </div>
+                <img src="triton.jpg" class="equip" alt="Phoropter">
+            </div>
+                        
+            <div class="phcard">
+                <div class="label">
+                    <p class="p2">HFA 30 Perimetey</p>
+                    <p class="p3">A reliable visual field analyzer that helps assess and monitor peripheral vision and glaucoma progression.
+                    </p>
+                </div>
+                <img src="hfa.jpg" class="equip" alt="Phoropter">
+            </div>
+        </div><br>
+        <p class="p4">Others</p>
+            <div class="gallery two-items">
+                        
+            <div class="phcard">
+                <div class="label">
+                    <p class="p2">Computerized Airpuff Tonometer</p>
+                    <p class="p3">A non-contact tonometry device that measures intraocular pressure using a quick air puff, providing patient comfort and efficiency.
+                    </p>
+                </div>
+                <img src="airpuff.jpg" class="equip" alt="Phoropter">
+            </div>
+                        
+            <div class="phcard">
+                <div class="label">
+                    <p class="p2">Autoref Keratometer KT-80</p>
+                    <p class="p3">An automated device for measuring refractive errors and corneal curvature, assisting in accurate vision correction assessments.</p>
+                </div>
+                <img src="autoref.jpg" class="equip" alt="Phoropter">
+            </div>
+            
+        </div>
+    </div>
+    <script>
+        document.getElementById('searchInput').addEventListener('keyup', function() {
+            const filter = this.value.toLowerCase();
+            const cards = document.querySelectorAll('.phcard');
+        
+            cards.forEach(card => {
+                const title = card.querySelector('.p2').textContent.toLowerCase();
+                const description = card.querySelector('.p3').textContent.toLowerCase();
+                
+                if (title.includes(filter) || description.includes(filter)) {
+                    card.style.display = ""; // Show card
+                } else {
+                    card.style.display = "none"; // Hide card
+                }
+            });
+        });
+        </script>
+        
+</body>
+</html>
